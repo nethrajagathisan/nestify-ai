@@ -49,8 +49,7 @@ htmlcov/
 # Streamlit
 .streamlit/
 
-# Data
-data/properties/*
-data/legal/*
-!data/properties/.gitkeep
-!data/legal/.gitkeep
+# Generated data
+data/properties/*.json
+
+# Keep legal reference docs tracked
