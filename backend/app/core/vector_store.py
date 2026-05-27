@@ -15,18 +15,23 @@ from ..config import get_settings
 
 
 class VectorStoreClient:
-    def __init__(self, url: str, api_key: str):
+    def __init__(self, url: str, api_key: str, local_path: str = ""):
         self._client: Optional[QdrantClient] = None
         self._url = url
         self._api_key = api_key
+        self._local_path = local_path
 
     def _get_client(self) -> QdrantClient:
         if self._client is None:
-            self._client = QdrantClient(
-                url=self._url,
-                api_key=self._api_key,
-                timeout=30,
-            )
+            if self._url and self._url.startswith("http"):
+                self._client = QdrantClient(
+                    url=self._url,
+                    api_key=self._api_key,
+                    timeout=30,
+                )
+            else:
+                # Local disk mode — no server needed
+                self._client = QdrantClient(path=self._local_path)
         return self._client
 
     def create_collection(self, name: str, vector_size: int) -> None:
@@ -172,4 +177,5 @@ def get_vector_store_client() -> VectorStoreClient:
     return VectorStoreClient(
         url=settings.QDRANT_URL,
         api_key=settings.QDRANT_API_KEY,
+        local_path=settings.QDRANT_LOCAL_PATH,
     )

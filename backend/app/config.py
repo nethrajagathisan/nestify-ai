@@ -11,8 +11,9 @@ class Settings(BaseSettings):
     )
 
     GROQ_API_KEY: str
-    QDRANT_URL: str
-    QDRANT_API_KEY: str
+    QDRANT_URL: str = ""
+    QDRANT_API_KEY: str = ""
+    QDRANT_LOCAL_PATH: str = "./qdrant_local"
     QDRANT_PROPERTIES_COLLECTION: str = "properties"
     QDRANT_FAQ_COLLECTION: str = "legal_faq"
     EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"

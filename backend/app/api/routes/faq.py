@@ -17,7 +17,7 @@ class FAQResponse(BaseModel):
     chunks_retrieved: int
 
 
-@router.post("/faq", response_model=FAQResponse)
+@router.post("/", response_model=FAQResponse)
 async def answer_faq(request: FAQRequest) -> FAQResponse:
     """Answer legal FAQ questions using retrieved context."""
     try:
